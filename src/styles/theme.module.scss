@@ -1,0 +1,54 @@
+@import "./colors";
+
+$themes: (
+  bg: (
+    dark: $gray-10-color-dark,
+    light: $gray-10-color-light,
+  ),
+  text: (
+    dark:  $gray-90-color-dark,
+    light: $gray-90-color-light,
+  ),
+  blue: (
+    dark: $blue-70-color-dark,
+    light: $blue-70-color-light,
+  ),
+  primaryColor: (
+    dark: red,
+    light: green,
+  ),
+  textColor: (
+    dark: $gray-100-color-dark,
+    light: $gray-100-color-light,
+  ),
+  backgroundColor: (
+    dark: $gray-10-color-dark,
+    light: $gray-10-color-light,
+  ),
+);
+
+@mixin styles($mode) {
+  @each $key, $map in $themes {
+    @each $prop, $color in $map {
+      @if $prop == $mode {
+        --#{$key}: #{$color};
+      }
+    }
+  }
+}
+
+:export {
+  @each $key, $map in $themes {
+    @each $mode, $color in $map {
+      #{$key}-#{$mode}: $color;
+    }
+  }
+}
+
+.dark {
+  @include styles("dark");
+}
+
+.light {
+  @include styles("light");
+}
